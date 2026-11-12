@@ -1,18 +1,22 @@
 # SynergyPlanner API
 
 Event registration for the **Synergy** tech fest. With 50+ events, many overlap in time, so
-SynergyPlanner refuses clashing registrations, runs a **waitlist** for full events, **promotes** the
-first waiting person when someone cancels, and shows each participant a clash-free schedule.
-Five kinds of data, three roles, saved in JSON files. No database.
+SynergyPlanner prevents clashing registrations, runs a **waitlist** for full events, **promotes** the waiting participants when someone cancels, making it a hassle-free experience for users.
+
+- Five kinds of data, three roles all saved in JSON files.
 
 ## Run
     pip install -r requirements.txt
     uvicorn main:app --reload
-Open http://127.0.0.1:8000/docs
+    
+    Open http://127.0.0.1:8000/docs
 
-The first start creates `venues.json`, `events.json`, `participants.json`, `registrations.json` and
-`feedback.json` next to `main.py`.
-**Clean start:** stop the server, delete those five files, start the server.
+running this command creates 
+- `venues.json`,
+- `events.json`, 
+- `participants.json`,
+- `registrations.json`
+- `feedback.json`
 
 The starter events are placed 30 days after the first start: **day 1** and **day 2** below mean
 the dates you see in `GET /events/1` and `GET /events/6`.
@@ -29,8 +33,9 @@ No header or an unknown role gives 401; a known role that is not allowed gives 4
 | admin | everything, including venues and listing/deleting participants |
 
 ## Models
-Venue, Event, Participant, **Registration** (links a participant to an event), Feedback (optional extra).
-Registration status moves: `confirmed -> cancelled | attended`, `waitlisted -> confirmed | cancelled`.
+Venue, Event, Participant, Registration, Feedback.
+
+Registration status: `confirmed -> cancelled | attended`, `waitlisted -> confirmed | cancelled`.
 
 ## Rules (constants at the top of `main.py`)
 1. No confirmed registration for two events that overlap in time (back-to-back is allowed) - 409
