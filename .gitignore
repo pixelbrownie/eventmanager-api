@@ -1,11 +1,11 @@
-__pycache__/
-*.pyc
-.venv/
-venv/
-# data files created by the server on first start
+# data files are created by the program on first run
 venues.json
 events.json
 participants.json
 registrations.json
 feedback.json
 *.broken
+__pycache__/
+*.pyc
+.venv/
+venv/
